@@ -467,4 +467,210 @@ Would you like me to dig deeper into any specific area, or would you prefer to e
     this.state.conversationDepth = 0;
     this.state.lastResearchTime = Date.now();
   }
+
+  private generateDeeperResearchResponse(userInput: string, analysis: any, currentSession: ResearchSession): {
+    response: string;
+    suggestions: string[];
+    followUpQuestions: string[];
+  } {
+    const focusArea = this.identifyFocusArea(userInput, analysis);
+    const persona = analysis.persona;
+
+    let response = '';
+    let suggestions: string[] = [];
+    let followUpQuestions: string[] = [];
+
+    switch (persona) {
+      case 'confused':
+        response = `Perfect! Since we've already researched ${this.state.currentCompany}, let me help you explore deeper insights.
+
+I can see you're interested in ${focusArea || 'more details'}. Here's what I can help you discover:
+
+🔍 **Enhanced Analysis Options:**
+• Deep dive into leadership team backgrounds
+• Detailed competitor comparison
+• Advanced SWOT with specific action items
+• Market trends and industry positioning
+• Financial performance metrics
+• Customer sentiment and reviews
+
+What specific aspect would you like me to investigate further? I'll gather comprehensive insights just for you!`;
+        break;
+
+      case 'efficient':
+        response = `Continuing research on ${this.state.currentCompany}. Focus: ${focusArea || 'comprehensive analysis'}.
+
+Areas available:
+• Leadership details
+• Competitor deep-dive
+• Advanced SWOT
+• Market analysis
+
+Which area?`;
+        break;
+
+      case 'chatty':
+        response = `Oh, this is exciting! 🚀 You want to dive deeper into ${this.state.currentCompany} - I absolutely love digging beneath the surface to uncover those fascinating insights that most people miss!
+
+Since we've already got the foundation, let's explore some really interesting dimensions. I can help you discover:
+
+✨ **Leadership Intelligence:** The brilliant minds steering the ship, their backgrounds, decision-making patterns, and strategic vision
+✨ **Competitive Intelligence:** How they stack up against rivals, market positioning, and strategic advantages
+✨ **Market Dynamics:** Industry trends, customer sentiment, and growth opportunities
+✨ **Financial Deep-Dive:** Performance metrics, revenue streams, and investment patterns
+✨ **Innovation Pipeline:** What's coming next, R&D focus, and future disruption potential
+
+What catches your curiosity? I'm genuinely thrilled to explore this rabbit hole with you! Let me know which dimension fascinates you most! ✨`;
+        break;
+
+      default:
+        response = `Excellent! Let's continue our analysis of ${this.state.currentCompany}. Since the initial research is complete, I can now provide deeper insights in specific areas.
+
+**Available Deep-Dive Areas:**
+• Leadership Team Analysis
+• Competitive Landscape Details
+• Advanced SWOT Assessment
+• Market Position Intelligence
+• Financial Performance Review
+• Customer & Market Sentiment
+
+Which area would you like me to investigate further?`;
+    }
+
+    // Generate focused suggestions based on the persona and context
+    suggestions = this.generateDeeperResearchSuggestions(persona, focusArea, currentSession);
+    followUpQuestions = this.generateDeeperFollowUpQuestions(persona, focusArea);
+
+    return { response, suggestions, followUpQuestions };
+  }
+
+  private identifyFocusArea(userInput: string, analysis: any): string {
+    const lowerInput = userInput.toLowerCase();
+
+    // Leadership related
+    if (lowerInput.includes('leadership') || lowerInput.includes('ceo') || lowerInput.includes('executive') ||
+        lowerInput.includes('team') || lowerInput.includes('management') || lowerInput.includes('founder')) {
+      return 'leadership';
+    }
+
+    // Competitor related
+    if (lowerInput.includes('competitor') || lowerInput.includes('competition') || lowerInput.includes('rival') ||
+        lowerInput.includes('vs') || lowerInput.includes('versus') || lowerInput.includes('market share')) {
+      return 'competitors';
+    }
+
+    // SWOT related
+    if (lowerInput.includes('swot') || lowerInput.includes('strength') || lowerInput.includes('weakness') ||
+        lowerInput.includes('opportunity') || lowerInput.includes('threat') || lowerInput.includes('advantage')) {
+      return 'swot';
+    }
+
+    // Financial related
+    if (lowerInput.includes('financial') || lowerInput.includes('revenue') || lowerInput.includes('profit') ||
+        lowerInput.includes('income') || lowerInput.includes('earnings') || lowerInput.includes('growth')) {
+      return 'financial';
+    }
+
+    // Market related
+    if (lowerInput.includes('market') || lowerInput.includes('industry') || lowerInput.includes('trend') ||
+        lowerInput.includes('position') || lowerInput.includes('share')) {
+      return 'market';
+    }
+
+    // Product related
+    if (lowerInput.includes('product') || lowerInput.includes('service') || lowerInput.includes('offering') ||
+        lowerInput.includes('solution') || lowerInput.includes('feature')) {
+      return 'products';
+    }
+
+    return 'general';
+  }
+
+  private generateDeeperResearchSuggestions(persona: UserPersona, focusArea: string, currentSession: ResearchSession): string[] {
+    const baseSuggestions = [
+      `Analyze ${this.state.currentCompany}'s competitive advantages`,
+      `Deep dive into leadership team backgrounds`,
+      `Explore market trends affecting ${this.state.currentCompany}`,
+      `Review customer sentiment and reviews`
+    ];
+
+    const personaSpecificSuggestions: Record<UserPersona, string[]> = {
+      confused: [
+        "Show me leadership team details",
+        "Compare with main competitors",
+        "Explain SWOT findings",
+        "What are their biggest challenges?"
+      ],
+      efficient: [
+        "Leadership analysis",
+        "Competitor comparison",
+        "SWOT deep-dive",
+        "Market positioning"
+      ],
+      chatty: [
+        "Let's explore the brilliant minds behind their success!",
+        "Tell me fascinating stories about their competitive journey!",
+        "What makes their strategy so brilliant?",
+        "Share insights about their company culture and values!"
+      ],
+      edge_case: [
+        "Leadership team details",
+        "Competitor analysis",
+        "SWOT assessment",
+        "Market position"
+      ],
+      normal: [
+        "Analyze leadership team",
+        "Compare with competitors",
+        "Detailed SWOT analysis",
+        "Market position review"
+      ]
+    };
+
+    return personaSpecificSuggestions[persona] || baseSuggestions;
+  }
+
+  private generateDeeperFollowUpQuestions(persona: UserPersona, focusArea: string): string[] {
+    const baseQuestions = [
+      `Would you like me to analyze ${this.state.currentCompany}'s performance against industry benchmarks?`,
+      `Should I investigate recent strategic initiatives and their impact?`,
+      `Are you interested in understanding their innovation pipeline and R investments?`,
+      `Would you like me to assess potential risks and opportunities in their market?`
+    ];
+
+    const personaSpecificQuestions: Record<UserPersona, string[]> = {
+      confused: [
+        "Which aspect of leadership would be most helpful for your goals?",
+        "Would competitor comparisons help you understand their position better?",
+        "Should I focus on their strengths or the challenges they face?",
+        "What specific market insights would be most valuable?"
+      ],
+      efficient: [
+        "Leadership or competitor focus?",
+        "Current performance or future outlook?",
+        "Strengths or opportunities analysis?",
+        "Internal factors or external market?"
+      ],
+      chatty: [
+        "Are you curious about the incredible journeys of their leadership team?",
+        "Would you love to hear fascinating stories about how they outmaneuver competitors?",
+        "Shall we explore the brilliant innovations that set them apart?",
+        "Want to discover the amazing market dynamics shaping their future?"
+      ],
+      edge_case: [
+        "Leadership analysis or competitor review?",
+        "SWOT details or market positioning?",
+        "Current status or future outlook?",
+        "Internal strategy or external factors?"
+      ],
+      normal: [
+        "Which area would provide the most valuable insights?",
+        "Would you like me to focus on internal or external factors?",
+        "Should I emphasize current performance or future potential?",
+        "Are leadership or market dynamics more important?"
+      ]
+    };
+
+    return personaSpecificQuestions[persona] || baseQuestions;
+  }
 }
