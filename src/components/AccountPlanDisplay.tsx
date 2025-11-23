@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Edit2, Save, X, Download, FileText, Eye, EyeOff, BarChart3, Users, Target, Lightbulb,
   TrendingUp, Zap, Award, Crown, Shield, Rocket, Star, Check, MoreVertical,
-  Sparkles, ArrowUp, Copy, Share2, FileDown
+  Sparkles, ArrowUp, Copy, Share2, FileDown, Brain
 } from 'lucide-react';
 import { AccountPlan, ResearchSession } from '@/types/accountPlan';
 import { AccountPlanSchema } from '@/types/accountPlan';
