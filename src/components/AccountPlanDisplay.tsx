@@ -519,9 +519,157 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
         </div>
       )}
     </div>
-  );
+    );
+  };
 
-  const renderLeadership = () => (
+  const renderLeadership = () => {
+    if (!plan) return null;
+
+    return (
+      <div className="space-y-6">
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center gap-3">
+            <div className="p-3 bg-gradient-to-r from-violet-500 to-purple-600 rounded-xl shadow-lg shadow-violet-500/25">
+              <Users className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-gray-900">Leadership Team</h3>
+              <p className="text-sm text-gray-600">Key executives and decision makers</p>
+            </div>
+          </div>
+
+          <button
+            onClick={() => handleEdit('leadership_and_key_people')}
+            className="px-6 py-3 bg-gradient-to-r from-violet-500 to-purple-600 text-white rounded-xl hover:from-violet-600 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 flex items-center gap-2 font-medium shadow-lg shadow-violet-500/25"
+          >
+            <Edit2 className="w-4 h-4" />
+            Edit Leadership
+          </button>
+        </div>
+
+        {plan.leadership_and_key_people.length === 0 ? (
+          <div className="text-center py-12">
+            <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Users className="w-6 h-6 text-gray-400" />
+            </div>
+            <h4 className="text-lg font-medium text-gray-900 mb-2">No Leadership Data</h4>
+            <p className="text-gray-500">Research team information to populate this section</p>
+          </div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {plan.leadership_and_key_people.map((leader, index) => (
+              <div
+                key={index}
+                className="group relative bg-gradient-to-br from-violet-50 to-purple-50 border border-violet-200 rounded-2xl p-6 hover:shadow-xl hover:scale-105 transition-all duration-300"
+              >
+                {/* Leader avatar */}
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-violet-400 to-purple-500 rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold text-lg">
+                      {leader.name ? leader.name.charAt(0) : 'U'}
+                    </span>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-bold text-gray-900">{leader.name || 'Unknown Name'}</h4>
+                    <p className="text-violet-600 text-sm font-medium">{leader.role || 'Unknown Role'}</p>
+                  </div>
+                </div>
+
+                {/* Leader details */}
+                {leader.details && (
+                  <div className="mb-4">
+                    <p className="text-sm text-gray-600 leading-relaxed">{leader.details}</p>
+                  </div>
+                )}
+
+                {/* Sources */}
+                {leader.source_urls && leader.source_urls.length > 0 && (
+                  <div className="text-xs text-gray-500">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Shield className="w-3 h-3" />
+                      <span>Sources</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {leader.source_urls.slice(0, 2).map((url, idx) => (
+                        <a
+                          key={idx}
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:text-blue-800 underline truncate"
+                          title={url}
+                        >
+                          Source {idx + 1}
+                        </a>
+                      ))}
+                      {leader.source_urls.length > 2 && (
+                        <span className="text-gray-400">
+                          +{leader.source_urls.length - 2} more
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Action buttons */}
+                <div className="flex gap-2 mt-4">
+                  <button
+                    onClick={() => copyToClipboard(
+                      `${leader.name || 'Unknown'}: ${leader.role || 'Unknown'} - ${leader.details || ''}`,
+                      'Leadership info'
+                    )}
+                    className="px-3 py-2 bg-white/80 hover:bg-white text-gray-700 rounded-lg transition-colors text-xs"
+                  >
+                    Copy
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (leader.source_urls && leader.source_urls.length > 0) {
+                        window.open(leader.source_urls[0], '_blank');
+                      }
+                    }}
+                    className="px-3 py-2 bg-purple-100 text-purple-700 rounded-lg transition-colors text-xs"
+                  >
+                    Source
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Competitors */}
+        <div className="mt-8">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-3 bg-gradient-to-r from-red-500 to-orange-600 rounded-xl shadow-lg shadow-red-500/25">
+              <Zap className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-gray-900">Competitive Landscape</h3>
+              <p className="text-sm text-gray-600">Key market competitors</p>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            {plan.competitors.length === 0 ? (
+              <p className="text-gray-400 italic text-center py-8">
+                No competitors identified yet
+              </p>
+            ) : (
+              plan.competitors.map((competitor, index) => (
+                <span
+                  key={index}
+                  className="px-4 py-2 bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-300/30 text-red-700 rounded-full text-sm font-medium hover:from-red-500/30 hover:to-orange-500/30 transition-all duration-200 transform hover:scale-105"
+                >
+                  {competitor}
+                </span>
+              ))
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
     <div className="space-y-6">
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center gap-3">
