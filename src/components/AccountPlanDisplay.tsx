@@ -754,7 +754,7 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
                   <span className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></span>
                   <span className="text-purple-700">{threat}</span>
                 </li>
-              ))}
+              ))
             )}
           </ul>
         </div>
