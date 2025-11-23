@@ -40,9 +40,13 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
     );
   }
 
-  const handleEdit = (field: string, currentValue: string | string[]) => {
+  const handleEdit = (field: string, currentValue: string | string[] | any) => {
     setEditingField(field);
-    setEditValue(typeof currentValue === 'string' ? currentValue : JSON.stringify(currentValue, null, 2));
+    if (typeof currentValue === 'string') {
+      setEditValue(currentValue);
+    } else {
+      setEditValue(JSON.stringify(currentValue, null, 2));
+    }
   };
 
   const handleSave = () => {
