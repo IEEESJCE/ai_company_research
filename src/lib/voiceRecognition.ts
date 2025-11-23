@@ -15,7 +15,7 @@ export class VoiceRecognition {
   private callbacks: VoiceCallbacks | null = null;
 
   constructor() {
-    this.synthesis = window.speechSynthesis;
+    this.synthesis = typeof window !== 'undefined' ? window.speechSynthesis : null;
     this.initializeRecognition();
   }
 
