@@ -304,9 +304,7 @@ Just let me know what you'd like to explore further!`;
     const { intent, entities } = analysis;
 
     if (this.isGreeting(entities[0] || '')) {
-      return "Oh, hello there! I'm absolutely thrilled to meet you! I'm your AI research assistant, and I absolutely love diving deep into companies and uncovering fascinating business insights. There's nothing more exciting than piecing together the puzzle of what makes companies successful, don't you think?
-
-Whether you're interested in a tech giant, an innovative startup, or anything in between, I'm here to help you discover their story. So, what's on your mind? Which company has caught your curiosity today?";
+      return "Oh, hello there! I'm absolutely thrilled to meet you! I'm your AI research assistant, and I absolutely love diving deep into companies and uncovering fascinating business insights. There's nothing more exciting than piecing together the puzzle of what makes companies successful, don't you think?\n\nWhether you're interested in a tech giant, an innovative startup, or anything in between, I'm here to help you discover their story. So, what's on your mind? Which company has caught your curiosity today?";
     }
 
     if (entities.length === 0) {
