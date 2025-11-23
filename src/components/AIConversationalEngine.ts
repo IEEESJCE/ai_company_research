@@ -233,7 +233,7 @@ export class AIConversationalEngine {
     }
 
     // Add to memory
-    this.state.memory.previousQueries.push(userInput);
+    this.state.memory.previousQueries.push(analysis.entities[0] || userInput);
     if (this.state.memory.previousQueries.length > 10) {
       this.state.memory.previousQueries.shift();
     }
@@ -245,7 +245,7 @@ export class AIConversationalEngine {
   }
 
   private craftResponse(analysis: any, currentSession?: ResearchSession): string {
-    const { persona, intent, sentiment } = analysis;
+    const { persona, intent, entities } = analysis;
 
     switch (persona) {
       case 'confused':
@@ -264,7 +264,7 @@ export class AIConversationalEngine {
   private craftConfusedUserResponse(analysis: any, currentSession?: ResearchSession): string {
     const { intent, entities } = analysis;
 
-    if (this.isGreeting(analysis.entities[0] || '')) {
+    if (this.isGreeting(entities[0] || '')) {
       return "Hello! I'm here to help you research companies and create comprehensive account plans. I can assist with finding company information, analyzing competitors, conducting SWOT analysis, and much more. What company would you like to learn about today? 🎯";
     }
 
@@ -353,7 +353,7 @@ What company would you like to explore?";
 Would you like me to dig deeper into any specific area, or would you prefer to export the results?`;
     }
 
-    return `I'll research ${entities[0]} for you, gathering information about their business model, market position, leadership, and competitive landscape. This comprehensive analysis will help inform strategic decisions.";
+    return `I'll research ${entities[0]} for you, gathering information about their business model, market position, leadership, and competitive landscape. This comprehensive analysis will help inform strategic decisions.`;
   }
 
   private generateSuggestions(analysis: any): string[] {
