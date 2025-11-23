@@ -223,7 +223,17 @@ Just tell me about any company you're curious about, and I'll dive deep into gat
 
       // Start research if needed
       if (aiResponse.shouldContinueResearch) {
-        startResearchForCompany(aiEngineRef.current.getConversationState().currentCompany);
+        const company = aiEngineRef.current.getConversationState().currentCompany;
+        const focusArea = aiResponse.focusArea as ResearchFocus;
+        const researchDepth = aiResponse.researchDepth;
+
+        if (researchDepth === 'deeper' && currentSession && currentSession.status === 'complete') {
+          // Continue research on existing session
+          startDeeperResearchForCompany(currentSession, focusArea);
+        } else {
+          // Start new research
+          startResearchForCompany(company);
+        }
       }
     }, 1500);
   };
