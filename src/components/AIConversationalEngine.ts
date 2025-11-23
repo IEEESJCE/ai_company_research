@@ -51,7 +51,7 @@ export class AIConversationalEngine {
 
   analyzeUserInput(input: string): {
     persona: UserPersona;
-    intent: string;
+    intent: 'research' | 'dig_deeper' | 'edit' | 'export' | 'competitor_analysis' | 'swot_analysis' | 'greeting' | 'general';
     entities: string[];
     sentiment: number;
   } {
