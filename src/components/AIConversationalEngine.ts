@@ -196,7 +196,7 @@ export class AIConversationalEngine {
     focusArea?: string;
   } {
     const analysis = this.analyzeUserInput(userInput);
-    this.updateState(analysis);
+    this.updateState(analysis, userInput);
 
     // Check if we should stay on the same company for deeper research
     if (this.shouldStayOnSameCompany(userInput) && currentSession?.status === 'complete') {
