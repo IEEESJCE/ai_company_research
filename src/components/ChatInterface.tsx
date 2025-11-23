@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Mic, MicOff, Send, MessageCircle, X, CheckCircle } from 'lucide-react';
+import { Mic, MicOff, Send, MessageCircle, X, CheckCircle, AlertCircle } from 'lucide-react';
 import { voiceRecognition, VoiceCallbacks } from '@/lib/voiceRecognition';
 import { VoiceStatus } from '@/types/accountPlan';
 import { researchAgent, ResearchProgress, ResearchCallbacks } from '@/lib/researchAgent';
+import { tavilyClient } from '@/lib/tavilyClient';
 import { ChatMessage } from '@/types/accountPlan';
 
 interface ChatInterfaceProps {
