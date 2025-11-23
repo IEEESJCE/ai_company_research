@@ -21,6 +21,7 @@ interface EditingState {
   value: any;
   originalValue: any;
   hasChanges: boolean;
+  error?: string;
 }
 
 interface TabConfig {
