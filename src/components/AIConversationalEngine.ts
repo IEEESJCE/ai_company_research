@@ -192,9 +192,22 @@ export class AIConversationalEngine {
     suggestions: string[];
     followUpQuestions: string[];
     shouldContinueResearch: boolean;
+    researchDepth?: 'initial' | 'deeper' | 'expert';
+    focusArea?: string;
   } {
     const analysis = this.analyzeUserInput(userInput);
     this.updateState(analysis);
+
+    // Check if we should stay on the same company for deeper research
+    if (this.shouldStayOnSameCompany(userInput) && currentSession?.status === 'complete') {
+      const deeperResponse = this.generateDeeperResearchResponse(userInput, analysis, currentSession);
+      return {
+        ...deeperResponse,
+        shouldContinueResearch: true,
+        researchDepth: 'deeper',
+        focusArea: this.identifyFocusArea(userInput, analysis)
+      };
+    }
 
     const response = this.craftResponse(analysis, currentSession);
     const suggestions = this.generateSuggestions(analysis);
