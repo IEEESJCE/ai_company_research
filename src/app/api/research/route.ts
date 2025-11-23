@@ -334,8 +334,8 @@ function extractValueProposition(companyName: string, sources: SourceData[]): st
   return `${companyName}'s competitive advantages and market differentiation require further analysis.`;
 }
 
-function extractLeadership(sources: SourceData[]) {
-  const leadership = [];
+function extractLeadership(sources: SourceData[]): Array<{name?: string, role?: string, details?: string, source_urls?: string[]}> {
+  const leadership: Array<{name?: string, role?: string, details?: string, source_urls?: string[]}> = [];
   const leadershipSources = sources.filter(s => s.type === 'leadership');
 
   for (const source of leadershipSources) {
