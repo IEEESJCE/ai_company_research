@@ -115,7 +115,7 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
     }
 
     setPlan(updatedPlan);
-    onResearchUpdate?.(updatedPlan);
+    onPlanUpdate?.(updatedPlan);
 
     // Remove editing state
     setEditingStates(prev => {
