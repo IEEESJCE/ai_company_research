@@ -330,16 +330,48 @@ Let me try a different approach or would you like me to research another company
     };
 
     try {
-      await researchAgent.startResearch(companyName, researchCallbacks);
+      // Call the API directly instead of client-side research agent
+      const response = await fetch('/api/research', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ companyName }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`API request failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data.success && data.session) {
+        // Simulate progress updates for better UX
+        const progressSteps = [
+          { step: 'Collecting company information', progress: 25 },
+          { step: 'Gathering leadership information', progress: 50 },
+          { step: 'Identifying competitors', progress: 75 },
+          { step: 'Synthesizing account plan', progress: 90 },
+          { step: 'Research completed', progress: 100 }
+        ];
+
+        for (const progressStep of progressSteps) {
+          researchCallbacks.onProgress({
+            step: progressStep.step,
+            progress: progressStep.progress,
+            message: progressStep.step,
+            completed: progressStep.progress === 100
+          });
+          await new Promise(resolve => setTimeout(resolve, 500)); // Brief delay for UX
+        }
+
+        researchCallbacks.onComplete(data.session);
+      } else {
+        throw new Error(data.error || 'Research failed');
+      }
     } catch (error) {
       console.error('Research error:', error);
-      setMessages(prev => [...prev, {
-        id: `msg_error_${Date.now()}`,
-        type: 'system',
-        content: `Research error: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        timestamp: new Date(),
-        isVoice: false
-      }]);
+      researchCallbacks.onError(error instanceof Error ? error.message : 'Unknown error');
       setIsResearching(false);
       setAiThinking(false);
     }
