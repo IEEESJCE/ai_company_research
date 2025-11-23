@@ -344,10 +344,13 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
     );
   };
 
-  const renderOverview = () => (
-    <div className="space-y-6">
-      {renderEditableField('company_overview', 'Company Overview', plan.company_overview, 'text',
-        'Enter comprehensive company overview...', FileText, true)}
+  const renderOverview = () => {
+    if (!plan) return null;
+
+    return (
+      <div className="space-y-6">
+        {renderEditableField('company_overview', 'Company Overview', plan.company_overview, 'text',
+          'Enter comprehensive company overview...', FileText, true)}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {renderEditableField('mission_and_vision', 'Mission & Vision', plan.mission_and_vision, 'text',
