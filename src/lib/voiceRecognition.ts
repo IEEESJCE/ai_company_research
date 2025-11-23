@@ -45,7 +45,7 @@ export class VoiceRecognition {
       this.callbacks?.onStart?.();
     };
 
-    this.recognition.onresult = (event: SpeechRecognitionEvent) => {
+    this.recognition.onresult = (event: any) => {
       let finalTranscript = '';
       let interimTranscript = '';
 
@@ -64,7 +64,7 @@ export class VoiceRecognition {
       }
     };
 
-    this.recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+    this.recognition.onerror = (event: any) => {
       let errorMessage = 'Voice recognition error';
 
       switch (event.error) {
