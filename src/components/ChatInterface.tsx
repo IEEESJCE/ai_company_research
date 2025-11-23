@@ -345,6 +345,118 @@ Let me try a different approach or would you like me to research another company
     }
   };
 
+  const startDeeperResearchForCompany = async (existingSession: ResearchSession, focusArea: ResearchFocus) => {
+    setIsResearching(true);
+    addMessage('system', `🔍 Starting deeper research for ${existingSession.companyName} - Focus: ${focusArea}...`);
+
+    const researchCallbacks: ResearchCallbacks = {
+      onProgress: (progress: ResearchProgress) => {
+        setResearchProgress(progress);
+        // Update progress message instead of adding new ones
+        setMessages(prev => {
+          const filtered = prev.filter(msg => !msg.content.includes('Deeper research progress:'));
+          const progressMessage: ChatMessage = {
+            id: `msg_deep_progress_${Date.now()}`,
+            type: 'system',
+            content: `🔍 Deeper research progress: ${progress.step} (${progress.progress}%)`,
+            timestamp: new Date(),
+            isVoice: false
+          };
+          return [...filtered, progressMessage];
+        });
+      },
+      onComplete: (session) => {
+        setIsResearching(false);
+        setResearchProgress(null);
+
+        const completionMessage: ChatMessage = {
+          id: `msg_deep_complete_${Date.now()}`,
+          type: 'assistant',
+          content: `🎯 Deeper research completed! I've enhanced the analysis of ${existingSession.companyName} with additional insights on **${focusArea}**.
+
+**Enhanced Account Plan Includes:**
+📊 Expanded ${focusArea} analysis
+🔍 Additional data sources and insights
+📈 Updated competitive intelligence
+💡 Enhanced strategic recommendations
+🎯 Deeper market position assessment
+
+The account plan has been significantly enriched with comprehensive ${focusArea} intelligence. Would you like to:
+• Explore another area in depth?
+• Review the enhanced findings?
+• Export the comprehensive analysis?`,
+          timestamp: new Date(),
+          isVoice: false
+        };
+
+        setMessages(prev => [...prev, completionMessage]);
+
+        // Update AI engine state
+        aiEngineRef.current.updateConversationState({
+          context: 'completed',
+          lastResearchTime: Date.now()
+        });
+
+        // Update suggestions for post-deeper-research
+        setSuggestions([
+          "Dig deeper into leadership team",
+          "Analyze competitors in detail",
+          "Review financial performance",
+          "Explore market positioning",
+          "Assess product innovations",
+          "Export enhanced account plan",
+          "Review SWOT findings"
+        ]);
+
+        // Speak completion if voice was used
+        if (isListening && voiceStatus.isSupported) {
+          setTimeout(() => {
+            speakResponse(`Deeper research completed for ${existingSession.companyName}. The enhanced account plan with additional ${focusArea} insights is ready for your review.`);
+          }, 1000);
+        }
+
+        onResearchComplete?.(session);
+      },
+      onError: (error: string) => {
+        setIsResearching(false);
+        setResearchProgress(null);
+
+        const errorMessage: ChatMessage = {
+          id: `msg_deep_error_${Date.now()}`,
+          type: 'assistant',
+          content: `❌ I encountered an issue during deeper research: ${error}.
+
+Let me try a different approach or would you like me to focus on a different area? I'm here to help you get the comprehensive insights you need!`,
+          timestamp: new Date(),
+          isVoice: false
+        };
+
+        setMessages(prev => [...prev, errorMessage]);
+
+        if (isListening && voiceStatus.isSupported) {
+          setTimeout(() => {
+            speakResponse(`Deeper research encountered an error. Let me help you with an alternative approach.`);
+          }, 1000);
+        }
+      }
+    };
+
+    try {
+      await researchAgent.continueResearch(existingSession, focusArea, researchCallbacks);
+    } catch (error) {
+      console.error('Deeper research error:', error);
+      setMessages(prev => [...prev, {
+        id: `msg_deep_error_${Date.now()}`,
+        type: 'system',
+        content: `Deeper research error: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        timestamp: new Date(),
+        isVoice: false
+      }]);
+      setIsResearching(false);
+      setAiThinking(false);
+    }
+  };
+
   const handleSuggestionClick = (suggestion: string) => {
     setInputText(suggestion);
     setShowSuggestions(false);
