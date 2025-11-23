@@ -190,9 +190,9 @@ export class VoiceRecognition {
   }
 
   // Get available voices for language selection
-  getVoices(): SpeechSynthesisVoice[] {
+  getVoices(): any[] {
     if (!this.synthesis) return [];
-    return this.synthesis.getVoices().filter(voice => voice.lang.startsWith('en'));
+    return this.synthesis.getVoices().filter((voice: any) => voice.lang.startsWith('en'));
   }
 
   // Check for microphone permissions
