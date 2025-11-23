@@ -232,8 +232,8 @@ function extractMissionVision(companyName: string, sources: SourceData[]): strin
   return `Mission and vision information for ${companyName} requires additional research.`;
 }
 
-function extractProductsServices(companyName: string, sources: SourceData[]) {
-  const products = [];
+function extractProductsServices(companyName: string, sources: SourceData[]): Array<{name: string, features?: string, pricing?: string}> {
+  const products: Array<{name: string, features?: string, pricing?: string}> = [];
   const companySources = sources.filter(s => s.type === 'company');
 
   for (const source of companySources) {
