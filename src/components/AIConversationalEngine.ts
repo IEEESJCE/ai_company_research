@@ -134,7 +134,7 @@ export class AIConversationalEngine {
     return [...new Set(entities)]; // Remove duplicates
   }
 
-  private extractIntent(input: string): string {
+  private extractIntent(input: string): 'research' | 'dig_deeper' | 'edit' | 'export' | 'competitor_analysis' | 'swot_analysis' | 'greeting' | 'general' {
     const lowerInput = input.toLowerCase();
 
     if (lowerInput.includes('research') || lowerInput.includes('analyze') || lowerInput.includes('find')) {
