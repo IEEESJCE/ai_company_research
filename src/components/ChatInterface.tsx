@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import { voiceRecognition, VoiceCallbacks } from '@/lib/voiceRecognition';
 import { VoiceStatus } from '@/types/accountPlan';
-import { researchAgent, ResearchProgress, ResearchCallbacks } from '@/lib/researchAgent';
+import { researchAgent, ResearchProgress, ResearchCallbacks, ResearchFocus } from '@/lib/researchAgent';
 import { tavilyClient } from '@/lib/tavilyClient';
 import { ChatMessage, ResearchSession } from '@/types/accountPlan';
 import { AIConversationalEngine } from './AIConversationalEngine';
