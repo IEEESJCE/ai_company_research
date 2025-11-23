@@ -21,13 +21,15 @@ interface TavilyResponse {
 export class TavilyClient {
   private apiKey: string;
   private baseUrl: string;
+  private demoMode: boolean;
 
   constructor(apiKey?: string) {
     this.apiKey = apiKey || TAVILY_API_KEY;
     this.baseUrl = TAVILY_API_URL;
+    this.demoMode = !this.apiKey;
 
     if (!this.apiKey) {
-      console.warn('Tavily API key not provided. Web search functionality will be limited.');
+      console.warn('Tavily API key not provided. Running in DEMO mode with sample data.');
     }
   }
 
