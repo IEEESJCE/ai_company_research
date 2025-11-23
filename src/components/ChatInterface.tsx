@@ -206,12 +206,20 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
             <MessageCircle className="w-5 h-5" />
             <h2 className="text-lg font-semibold">Company Research Assistant</h2>
           </div>
-          {voiceStatus.isSupported && (
-            <div className="flex items-center gap-2 text-sm">
-              <div className={`w-2 h-2 rounded-full ${voiceStatus.isSupported ? 'bg-green-400' : 'bg-red-400'}`} />
-              Voice {voiceStatus.isSupported ? 'Ready' : 'Unavailable'}
-            </div>
-          )}
+          <div className="flex items-center gap-3">
+            {tavilyClient.isDemoMode() && (
+              <div className="flex items-center gap-1 text-xs bg-yellow-500/20 px-2 py-1 rounded-full">
+                <AlertCircle className="w-3 h-3" />
+                DEMO MODE
+              </div>
+            )}
+            {voiceStatus.isSupported && (
+              <div className="flex items-center gap-2 text-sm">
+                <div className={`w-2 h-2 rounded-full ${voiceStatus.isSupported ? 'bg-green-400' : 'bg-red-400'}`} />
+                Voice {voiceStatus.isSupported ? 'Ready' : 'Unavailable'}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
