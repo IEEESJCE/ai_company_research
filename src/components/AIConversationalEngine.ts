@@ -411,7 +411,7 @@ Would you like me to dig deeper into any specific area, or would you prefer to e
 
     return intent === 'dig_deeper' ||
            (persona === 'chatty' && this.state.conversationDepth < 5) ||
-           (this.state.currentCompany && analysis.intent === 'research' && this.state.conversationDepth > 1);
+           (this.state.currentCompany && intent === 'research' && this.state.conversationDepth > 1);
   }
 
   getConversationState(): ConversationState {
