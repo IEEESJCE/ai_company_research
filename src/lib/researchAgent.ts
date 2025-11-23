@@ -163,9 +163,15 @@ export class ResearchAgent {
         const progress = 20 + (i * 15);
         this.updateProgress(progress, `Researching leadership layer ${i + 1}`, false);
 
-        const sources = await tavilyClient.search(leadershipSearches[i], 3);
+        const response = await tavilyClient.search(leadershipSearches[i], 3);
 
-        this.currentSession!.sources.push(...sources);
+        this.currentSession!.sources.push(...response.results.map(result => ({
+          url: result.url,
+          title: result.title,
+          content: result.content,
+          type: 'leadership' as const,
+          relevanceScore: result.score || 0.5,
+        })));
       }
     } catch (error) {
       console.error('Deep leadership research failed:', error);
