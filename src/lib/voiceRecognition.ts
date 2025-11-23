@@ -8,8 +8,8 @@ export interface VoiceCallbacks {
 }
 
 export class VoiceRecognition {
-  private recognition: SpeechRecognition | null = null;
-  private synthesis: SpeechSynthesis;
+  private recognition: any = null;
+  private synthesis: any;
   private isListening = false;
   private isSpeaking = false;
   private callbacks: VoiceCallbacks | null = null;
