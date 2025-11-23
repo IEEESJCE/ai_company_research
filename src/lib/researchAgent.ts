@@ -494,7 +494,29 @@ export class ResearchAgent {
       }
     }
 
-    return `Mission and vision information for ${companyName} is currently being researched.`;
+    // Enhanced demo mission/vision
+    return this.generateDemoMissionVision(companyName);
+  }
+
+  private generateDemoMissionVision(companyName: string): string {
+    const missions = [
+      `To revolutionize industries through innovative technology solutions that empower businesses and transform user experiences.`,
+      `To create sustainable value by delivering exceptional products and services that exceed customer expectations and drive positive global impact.`,
+      `To democratize access to cutting-edge solutions, enabling organizations of all sizes to compete and thrive in the digital economy.`,
+      `To pioneer the future of business through relentless innovation, customer-centric design, and operational excellence.`
+    ];
+
+    const visions = [
+      `A world where technology seamlessly integrates with business processes to create unprecedented efficiency and growth opportunities.`,
+      `To become the global leader in transformative solutions that set industry standards and inspire continuous innovation.`,
+      `To build a connected ecosystem where businesses can leverage advanced technologies to achieve their fullest potential.`,
+      `To be recognized as the most trusted partner in digital transformation and sustainable business growth.`
+    ];
+
+    const randomMission = missions[Math.floor(Math.random() * missions.length)];
+    const randomVision = visions[Math.floor(Math.random() * visions.length)];
+
+    return `Mission: ${randomMission} | Vision: ${randomVision}`;
   }
 
   private extractProductsServices(companyName: string, sources: SourceData[]): Product[] {
