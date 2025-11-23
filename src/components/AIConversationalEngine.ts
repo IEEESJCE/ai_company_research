@@ -318,9 +318,7 @@ Just let me know what you'd like to explore further!`;
     const { intent, entities } = analysis;
 
     if (this.isGreeting(entities[0] || '')) {
-      return "Hello! I'm an AI-powered company research assistant. I can help you create comprehensive account plans, analyze competitors, and conduct business intelligence research.
-
-If you're looking to research a company, just tell me the name and I'll get started!";
+      return "Hello! I'm an AI-powered company research assistant. I can help you create comprehensive account plans, analyze competitors, and conduct business intelligence research.\n\nIf you're looking to research a company, just tell me the name and I'll get started!";
     }
 
     if (!this.isCompanyRelated(entities[0] || '')) {
