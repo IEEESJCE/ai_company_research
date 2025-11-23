@@ -163,10 +163,7 @@ export class ResearchAgent {
         const progress = 20 + (i * 15);
         this.updateProgress(progress, `Researching leadership layer ${i + 1}`, false);
 
-        const sources = await tavilyClient.search(leadershipSearches[i], {
-          max_results: 3,
-          search_depth: "advanced"
-        });
+        const sources = await tavilyClient.search(leadershipSearches[i], 3);
 
         this.currentSession!.sources.push(...sources);
       }
