@@ -322,11 +322,7 @@ Just let me know what you'd like to explore further!`;
     }
 
     if (!this.isCompanyRelated(entities[0] || '')) {
-      return "I'd be happy to help! I specialize in company research and account plan generation.
-
-To get started, simply tell me the name of any company you'd like to research, and I'll gather comprehensive information about their business model, leadership, competitors, and create a detailed account plan for you.
-
-What company would you like to explore?";
+      return "I'd be happy to help! I specialize in company research and account plan generation.\n\nTo get started, simply tell me the name of any company you'd like to research, and I'll gather comprehensive information about their business model, leadership, competitors, and create a detailed account plan for you.\n\nWhat company would you like to explore?";
     }
 
     return this.craftNormalUserResponse(analysis, currentSession);
