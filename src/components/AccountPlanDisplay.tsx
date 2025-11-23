@@ -861,7 +861,7 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
           <h4 className="text-lg font-bold text-gray-900">Quick Export</h4>
         </div>
 
-        <div className="grid grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <button
             onClick={() => handleExport('json')}
             className="p-4 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors text-gray-700 text-sm"
