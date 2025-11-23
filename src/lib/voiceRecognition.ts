@@ -20,11 +20,12 @@ export class VoiceRecognition {
   }
 
   private initializeRecognition(): void {
-    if (typeof window !== 'undefined' && 'webkitSpeechRecognition' in window) {
-      // @ts-ignore - webkitSpeechRecognition is not in the TypeScript lib
-      this.recognition = new window.webkitSpeechRecognition();
-    } else if (typeof window !== 'undefined' && 'SpeechRecognition' in window) {
-      this.recognition = new window.SpeechRecognition();
+    if (typeof window !== 'undefined') {
+      // @ts-ignore - SpeechRecognition API types
+      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+      if (SpeechRecognition) {
+        this.recognition = new SpeechRecognition();
+      }
     }
 
     if (this.recognition) {
