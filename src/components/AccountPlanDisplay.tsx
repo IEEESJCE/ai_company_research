@@ -33,7 +33,7 @@ interface TabConfig {
 
 export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
   researchSession,
-  onResearchUpdate,
+  onPlanUpdate,
   className = ''
 }) => {
   const [activeTab, setActiveTab] = useState<string>('overview');
