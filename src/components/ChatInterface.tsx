@@ -484,7 +484,7 @@ Let me try a different approach or would you like me to focus on a different are
       setVoiceStatus(status);
       addMessage('assistant', '🎤 Microphone permission granted! You can now use voice input. Just click the microphone button and speak naturally.');
     } else {
-      addMessage('assistant', 'No worries! You can still use text input, and I'll be just as helpful. The conversation continues!');
+      addMessage('assistant', 'No worries! You can still use text input, and I\'ll be just as helpful. The conversation continues!');
     }
   };
 
