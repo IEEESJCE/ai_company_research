@@ -265,25 +265,25 @@ export class AIConversationalEngine {
     const { intent, entities } = analysis;
 
     if (this.isGreeting(entities[0] || '')) {
-      return "Hello! I'm here to help you research companies and create comprehensive account plans. I can assist with finding company information, analyzing competitors, conducting SWOT analysis, and much more. What company would you like to learn about today? 🎯";
+      return "Hello! I'm here to help you research companies and create comprehensive account plans. I can assist with finding company information, analyzing competitors, conducting SWOT analysis, and much more. What company would you like to learn about today?";
     }
 
     if (entities.length === 0) {
-      return "I'd be happy to help! To get started, just tell me the name of any company you'd like to research. For example, you could say 'Tell me about Apple' or 'Research Tesla'. I'll then gather comprehensive information about the company, including their business model, leadership, competitors, and create a detailed account plan for you. 📊";
+      return "I'd be happy to help! To get started, just tell me the name of any company you'd like to research. For example, you could say 'Tell me about Apple' or 'Research Tesla'. I'll then gather comprehensive information about the company, including their business model, leadership, competitors, and create a detailed account plan for you.";
     }
 
     if (currentSession?.status === 'complete') {
       return `Perfect! I can see you've already researched ${this.state.currentCompany}. Would you like me to:
 
-🔍 Dig deeper into specific aspects (like leadership, products, or market position)?
-📊 Analyze the information I found?
-✏️ Edit any part of the account plan?
-📤 Export the results?
+• Dig deeper into specific aspects (like leadership, products, or market position)?
+• Analyze the information I found?
+• Edit any part of the account plan?
+• Export the results?
 
 Just let me know what you'd like to explore further!`;
     }
 
-    return `Great choice! I'll help you research ${entities[0]}. Let me gather comprehensive information about their business model, leadership team, products, competitors, and market position. This will take about 30-60 seconds while I analyze multiple data sources. Ready to begin the deep dive? 🚀`;
+    return `Great choice! I'll help you research ${entities[0]}. Let me gather comprehensive information about their business model, leadership team, products, competitors, and market position. This will take about 30-60 seconds while I analyze multiple data sources. Ready to begin the deep dive?`;
   }
 
   private craftEfficientUserResponse(analysis: any, currentSession?: ResearchSession): string {
@@ -304,27 +304,27 @@ Just let me know what you'd like to explore further!`;
     const { intent, entities } = analysis;
 
     if (this.isGreeting(entities[0] || '')) {
-      return "Oh, hello there! 👋 I'm absolutely thrilled to meet you! I'm your AI research assistant, and I absolutely love diving deep into companies and uncovering fascinating business insights. There's nothing more exciting than piecing together the puzzle of what makes companies successful, don't you think?
+      return "Oh, hello there! I'm absolutely thrilled to meet you! I'm your AI research assistant, and I absolutely love diving deep into companies and uncovering fascinating business insights. There's nothing more exciting than piecing together the puzzle of what makes companies successful, don't you think?
 
-Whether you're interested in a tech giant, an innovative startup, or anything in between, I'm here to help you discover their story. So, what's on your mind? Which company has caught your curiosity today? ✨";
+Whether you're interested in a tech giant, an innovative startup, or anything in between, I'm here to help you discover their story. So, what's on your mind? Which company has caught your curiosity today?";
     }
 
     if (entities.length === 0) {
       return "I'm absolutely fascinated by your curiosity! Company research is such an incredible journey - it's like being a business detective, piecing together clues about strategy, innovation, and market positioning.
 
-To get started, just share a company name that interests you. It could be a company you admire, want to compete with, or are simply curious about. I'll gather insights from across the web and create something truly comprehensive for you. What company would you like to explore together? 🕵️‍♀️";
+To get started, just share a company name that interests you. It could be a company you admire, want to compete with, or are simply curious about. I'll gather insights from across the web and create something truly comprehensive for you. What company would you like to explore together?";
     }
 
     return `Ooh, ${entities[0]}! That's such an interesting choice! I'm genuinely excited to dive into this one. Company research is like peeling back layers of an onion - there's always something fascinating to discover about their business strategy, the brilliant minds behind their success, their competitive landscape, and how they're positioning themselves for the future.
 
-Let me gather some really comprehensive insights for you. I'll look at their business model, leadership philosophy, product ecosystem, competitive advantages, and so much more. This is going to be fascinating! Ready for this deep dive? 🚀✨`;
+Let me gather some really comprehensive insights for you. I'll look at their business model, leadership philosophy, product ecosystem, competitive advantages, and so much more. This is going to be fascinating! Ready for this deep dive?`;
   }
 
   private craftEdgeCaseResponse(analysis: any, currentSession?: ResearchSession): string {
     const { intent, entities } = analysis;
 
     if (this.isGreeting(entities[0] || '')) {
-      return "Hello! 👋 I'm an AI-powered company research assistant. I can help you create comprehensive account plans, analyze competitors, and conduct business intelligence research.
+      return "Hello! I'm an AI-powered company research assistant. I can help you create comprehensive account plans, analyze competitors, and conduct business intelligence research.
 
 If you're looking to research a company, just tell me the name and I'll get started!";
     }
@@ -486,7 +486,7 @@ Would you like me to dig deeper into any specific area, or would you prefer to e
 
 I can see you're interested in ${focusArea || 'more details'}. Here's what I can help you discover:
 
-🔍 **Enhanced Analysis Options:**
+**Enhanced Analysis Options:**
 • Deep dive into leadership team backgrounds
 • Detailed competitor comparison
 • Advanced SWOT with specific action items
@@ -510,17 +510,17 @@ Which area?`;
         break;
 
       case 'chatty':
-        response = `Oh, this is exciting! 🚀 You want to dive deeper into ${this.state.currentCompany} - I absolutely love digging beneath the surface to uncover those fascinating insights that most people miss!
+        response = `Oh, this is exciting! You want to dive deeper into ${this.state.currentCompany} - I absolutely love digging beneath the surface to uncover those fascinating insights that most people miss!
 
 Since we've already got the foundation, let's explore some really interesting dimensions. I can help you discover:
 
-✨ **Leadership Intelligence:** The brilliant minds steering the ship, their backgrounds, decision-making patterns, and strategic vision
-✨ **Competitive Intelligence:** How they stack up against rivals, market positioning, and strategic advantages
-✨ **Market Dynamics:** Industry trends, customer sentiment, and growth opportunities
-✨ **Financial Deep-Dive:** Performance metrics, revenue streams, and investment patterns
-✨ **Innovation Pipeline:** What's coming next, R&D focus, and future disruption potential
+**Leadership Intelligence:** The brilliant minds steering the ship, their backgrounds, decision-making patterns, and strategic vision
+**Competitive Intelligence:** How they stack up against rivals, market positioning, and strategic advantages
+**Market Dynamics:** Industry trends, customer sentiment, and growth opportunities
+**Financial Deep-Dive:** Performance metrics, revenue streams, and investment patterns
+**Innovation Pipeline:** What's coming next, R&D focus, and future disruption potential
 
-What catches your curiosity? I'm genuinely thrilled to explore this rabbit hole with you! Let me know which dimension fascinates you most! ✨`;
+What catches your curiosity? I'm genuinely thrilled to explore this rabbit hole with you! Let me know which dimension fascinates you most!`;
         break;
 
       default:
