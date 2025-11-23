@@ -916,8 +916,7 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
           <button
             onClick={() => {
               // Simple PDF generation
-              const printContent = document.createElement('div');
-              printContent.innerHTML = `
+              const htmlContent = `
                 <style>
                   body { font-family: Arial, sans-serif; padding: 20px; }
                   h1 { color: #1f2937b; }
