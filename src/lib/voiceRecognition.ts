@@ -177,7 +177,7 @@ export class VoiceRecognition {
 
   isSupported(): boolean {
     return !!(typeof window !== 'undefined' &&
-      (window.SpeechRecognition || window.webkitSpeechRecognition) &&
+      ((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition) &&
       window.speechSynthesis);
   }
 
