@@ -194,7 +194,7 @@ Just tell me about any company you're curious about, and I'll dive deep into gat
     addMessage('system', '🤔 Thinking...');
 
     setTimeout(() => {
-      const aiResponse = aiEngineRef.current.generateResponse(userInput, currentSession);
+      const aiResponse = aiEngineRef.current.generateResponse(userInput, currentSession || undefined);
 
       // Remove thinking message
       setMessages(prev => prev.filter(msg => !msg.content.includes('Thinking...')));
