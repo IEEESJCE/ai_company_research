@@ -659,6 +659,18 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
   );
 
   const renderSWOT = () => {
+    if (!plan || !plan.swot_analysis) {
+      return (
+        <div className="text-center py-12">
+          <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Lightbulb className="w-6 h-6 text-gray-400" />
+          </div>
+          <h4 className="text-lg font-medium text-gray-900 mb-2">No SWOT Analysis</h4>
+          <p className="text-gray-500">Complete research to generate SWOT analysis</p>
+        </div>
+      );
+    }
+
     const { strengths, weaknesses, opportunities, threats } = plan.swot_analysis;
 
     return (
