@@ -29,17 +29,8 @@ export async function POST(request: NextRequest) {
 
     // Check if Tavily API is configured
     if (!tavilyClient.isConfigured()) {
-      return NextResponse.json(
-        {
-          error: 'Web search service is not configured. Please set TAVILY_API_KEY environment variable.',
-          session: {
-            ...session,
-            status: 'error' as const,
-            currentStep: 'Configuration error: Tavily API key not found'
-          }
-        },
-        { status: 503 }
-      );
+      console.log('Running in DEMO mode - no API key configured');
+      // Continue with demo mode instead of erroring
     }
 
     // Start research process
