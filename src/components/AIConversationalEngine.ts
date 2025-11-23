@@ -409,9 +409,11 @@ Would you like me to dig deeper into any specific area, or would you prefer to e
   private shouldContinueResearch(analysis: any): boolean {
     const { intent, persona } = analysis;
 
-    return intent === 'dig_deeper' ||
-           (persona === 'chatty' && this.state.conversationDepth < 5) ||
-           (this.state.currentCompany && intent === 'research' && this.state.conversationDepth > 1);
+    const isDiggingDeeper = intent === 'dig_deeper';
+    const isChattyWithDepth = persona === 'chatty' && this.state.conversationDepth < 5;
+    const isContinuedResearch = this.state.currentCompany && intent === 'research' && this.state.conversationDepth > 1;
+
+    return isDiggingDeeper || isChattyWithDepth || isContinuedResearch;
   }
 
   getConversationState(): ConversationState {
