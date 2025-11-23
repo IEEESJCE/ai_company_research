@@ -775,18 +775,21 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
     );
   };
 
-  const renderDiagram = () => (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center mb-6">
-        <div className="flex items-center gap-3">
-          <div className="p-3 bg-gradient-to-r from-pink-500 to-rose-600 rounded-xl shadow-lg shadow-pink-500/25">
-            <BarChart3 className="w-5 h-5 text-white" />
+  const renderDiagram = () => {
+    if (!plan) return null;
+
+    return (
+      <div className="space-y-6">
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center gap-3">
+            <div className="p-3 bg-gradient-to-r from-pink-500 to-rose-600 rounded-xl shadow-lg shadow-pink-500/25">
+              <BarChart3 className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-gray-900">Company Structure</h3>
+              <p className="text-sm text-gray-600">Visual organization and relationships</p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-xl font-bold text-gray-900">Company Structure</h3>
-            <p className="text-sm text-gray-600">Visual organization and relationships</p>
-          </div>
-        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Diagram Display */}
