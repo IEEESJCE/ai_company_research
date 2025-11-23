@@ -865,7 +865,7 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {(['json', 'csv', 'pdf', 'markdown'] as ExportFormat).map((format) => (
+        {(['json', 'csv', 'pdf', 'markdown'] as const).map((format) => (
           <button
             key={format}
             onClick={() => handleExport(format)}
