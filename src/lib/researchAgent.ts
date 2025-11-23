@@ -79,6 +79,264 @@ export class ResearchAgent {
     return this.currentSession!;
   }
 
+  async continueResearch(
+    existingSession: ResearchSession,
+    focusArea: ResearchFocus,
+    callbacks: ResearchCallbacks
+  ): Promise<ResearchSession> {
+    this.callbacks = callbacks;
+    this.currentSession = { ...existingSession };
+
+    try {
+      this.currentSession.status = 'starting';
+      this.currentSession.progress = 0;
+      this.currentSession.currentStep = `Starting deeper research: ${focusArea}`;
+      this.currentSession.updatedAt = new Date();
+
+      // Perform focused research based on the specified area
+      await this.performFocusedResearch(existingSession.companyName, focusArea);
+
+      // Re-synthesize the account plan with new information
+      await this.synthesizeAccountPlan(existingSession.companyName);
+
+      // Update session status
+      if (this.currentSession) {
+        this.currentSession.status = 'complete';
+        this.currentSession.progress = 100;
+        this.currentSession.currentStep = `Deeper research completed: ${focusArea}`;
+        this.currentSession.updatedAt = new Date();
+
+        this.updateProgress(100, 'Deeper research completed successfully', true);
+        this.callbacks?.onComplete(this.currentSession);
+      }
+    } catch (error) {
+      if (this.currentSession) {
+        this.currentSession.status = 'error';
+        this.currentSession.currentStep = `Error in deeper research: ${error instanceof Error ? error.message : 'Unknown error'}`;
+        this.currentSession.updatedAt = new Date();
+      }
+
+      this.callbacks?.onError(error instanceof Error ? error.message : 'Unknown error');
+    }
+
+    return this.currentSession!;
+  }
+
+  private async performFocusedResearch(companyName: string, focusArea: ResearchFocus): Promise<void> {
+    switch (focusArea) {
+      case 'leadership':
+        await this.performDeepLeadershipResearch(companyName);
+        break;
+      case 'competitors':
+        await this.performDeepCompetitorResearch(companyName);
+        break;
+      case 'swot':
+        await this.performDeepSWOTResearch(companyName);
+        break;
+      case 'financial':
+        await this.performFinancialResearch(companyName);
+        break;
+      case 'market':
+        await this.performMarketResearch(companyName);
+        break;
+      case 'products':
+        await this.performProductResearch(companyName);
+        break;
+      default:
+        await this.performGeneralDeepResearch(companyName);
+    }
+  }
+
+  private async performDeepLeadershipResearch(companyName: string): Promise<void> {
+    this.updateProgress(20, 'Deep-diving into leadership team backgrounds', false);
+
+    try {
+      // Search for more detailed leadership information
+      const leadershipSearches = [
+        `${companyName} CEO biography leadership experience`,
+        `${companyName} executive team management backgrounds`,
+        `${companyName} leadership team career history`,
+        `${companyName} board of directors expertise`
+      ];
+
+      for (let i = 0; i < leadershipSearches.length; i++) {
+        const progress = 20 + (i * 15);
+        this.updateProgress(progress, `Researching leadership layer ${i + 1}`, false);
+
+        const sources = await tavilyClient.search(leadershipSearches[i], {
+          max_results: 3,
+          search_depth: "advanced"
+        });
+
+        this.currentSession!.sources.push(...sources);
+      }
+    } catch (error) {
+      console.error('Deep leadership research failed:', error);
+    }
+  }
+
+  private async performDeepCompetitorResearch(companyName: string): Promise<void> {
+    this.updateProgress(20, 'Analyzing competitive landscape in detail', false);
+
+    try {
+      const competitorSearches = [
+        `${companyName} main competitors market share analysis`,
+        `${companyName} vs competitors comparison strengths weaknesses`,
+        `${companyName} industry competition landscape`,
+        `${companyName} competitive positioning strategy`
+      ];
+
+      for (let i = 0; i < competitorSearches.length; i++) {
+        const progress = 20 + (i * 15);
+        this.updateProgress(progress, `Analyzing competitor segment ${i + 1}`, false);
+
+        const sources = await tavilyClient.search(competitorSearches[i], {
+          max_results: 3,
+          search_depth: "advanced"
+        });
+
+        this.currentSession!.sources.push(...sources);
+      }
+    } catch (error) {
+      console.error('Deep competitor research failed:', error);
+    }
+  }
+
+  private async performDeepSWOTResearch(companyName: string): Promise<void> {
+    this.updateProgress(20, 'Performing comprehensive SWOT analysis', false);
+
+    try {
+      const swotSearches = [
+        `${companyName} strengths advantages capabilities`,
+        `${companyName} weaknesses challenges limitations`,
+        `${companyName} opportunities growth potential market`,
+        `${companyName} threats risks market competition`
+      ];
+
+      for (let i = 0; i < swotSearches.length; i++) {
+        const progress = 20 + (i * 15);
+        this.updateProgress(progress, `Analyzing ${['Strengths', 'Weaknesses', 'Opportunities', 'Threats'][i]}`, false);
+
+        const sources = await tavilyClient.search(swotSearches[i], {
+          max_results: 3,
+          search_depth: "advanced"
+        });
+
+        this.currentSession!.sources.push(...sources);
+      }
+    } catch (error) {
+      console.error('Deep SWOT research failed:', error);
+    }
+  }
+
+  private async performFinancialResearch(companyName: string): Promise<void> {
+    this.updateProgress(20, 'Researching financial performance metrics', false);
+
+    try {
+      const financialSearches = [
+        `${companyName} revenue financial performance earnings`,
+        `${companyName} business model monetization strategy`,
+        `${companyName} investment funding valuation`,
+        `${companyName} financial growth trends profitability`
+      ];
+
+      for (let i = 0; i < financialSearches.length; i++) {
+        const progress = 20 + (i * 15);
+        this.updateProgress(progress, `Analyzing financial aspect ${i + 1}`, false);
+
+        const sources = await tavilyClient.search(financialSearches[i], {
+          max_results: 3,
+          search_depth: "advanced"
+        });
+
+        this.currentSession!.sources.push(...sources);
+      }
+    } catch (error) {
+      console.error('Financial research failed:', error);
+    }
+  }
+
+  private async performMarketResearch(companyName: string): Promise<void> {
+    this.updateProgress(20, 'Analyzing market dynamics and trends', false);
+
+    try {
+      const marketSearches = [
+        `${companyName} market position industry trends`,
+        `${companyName} target market customer demographics`,
+        `${companyName} market share competitive landscape`,
+        `${companyName} industry outlook future trends`
+      ];
+
+      for (let i = 0; i < marketSearches.length; i++) {
+        const progress = 20 + (i * 15);
+        this.updateProgress(progress, `Researching market dimension ${i + 1}`, false);
+
+        const sources = await tavilyClient.search(marketSearches[i], {
+          max_results: 3,
+          search_depth: "advanced"
+        });
+
+        this.currentSession!.sources.push(...sources);
+      }
+    } catch (error) {
+      console.error('Market research failed:', error);
+    }
+  }
+
+  private async performProductResearch(companyName: string): Promise<void> {
+    this.updateProgress(20, 'Deep-diving into products and services', false);
+
+    try {
+      const productSearches = [
+        `${companyName} products services features`,
+        `${companyName} product innovation development pipeline`,
+        `${companyName} service offerings customer solutions`,
+        `${companyName} product strategy future roadmap`
+      ];
+
+      for (let i = 0; i < productSearches.length; i++) {
+        const progress = 20 + (i * 15);
+        this.updateProgress(progress, `Researching product category ${i + 1}`, false);
+
+        const sources = await tavilyClient.search(productSearches[i], {
+          max_results: 3,
+          search_depth: "advanced"
+        });
+
+        this.currentSession!.sources.push(...sources);
+      }
+    } catch (error) {
+      console.error('Product research failed:', error);
+    }
+  }
+
+  private async performGeneralDeepResearch(companyName: string): Promise<void> {
+    this.updateProgress(20, 'Performing comprehensive deep research', false);
+
+    try {
+      const generalSearches = [
+        `${companyName} company strategy future outlook`,
+        `${companyName} recent developments achievements`,
+        `${companyName} innovations technology advancements`,
+        `${companyName} partnerships collaborations`
+      ];
+
+      for (let i = 0; i < generalSearches.length; i++) {
+        const progress = 20 + (i * 15);
+        this.updateProgress(progress, `Researching comprehensive area ${i + 1}`, false);
+
+        const sources = await tavilyClient.search(generalSearches[i], {
+          max_results: 3,
+          search_depth: "advanced"
+        });
+
+        this.currentSession!.sources.push(...sources);
+      }
+    } catch (error) {
+      console.error('General deep research failed:', error);
+    }
+  }
+
   private async collectCompanyInfo(companyName: string): Promise<void> {
     this.updateProgress(10, 'Searching for company information', false);
 
