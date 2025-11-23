@@ -34,6 +34,10 @@ export class TavilyClient {
   }
 
   async search(query: string, maxResults: number = 10): Promise<TavilyResponse> {
+    if (this.demoMode) {
+      return this.getDemoSearchResponse(query, maxResults);
+    }
+
     if (!this.apiKey) {
       throw new Error('Tavily API key is required for web search functionality');
     }
