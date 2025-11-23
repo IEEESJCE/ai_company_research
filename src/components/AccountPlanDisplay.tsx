@@ -374,29 +374,32 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
     );
   };
 
-  const renderProducts = () => (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center mb-6">
-        <div className="flex items-center gap-3">
-          <div className="p-3 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl shadow-lg shadow-emerald-500/25">
-            <Target className="w-5 h-5 text-white" />
+  const renderProducts = () => {
+    if (!plan) return null;
+
+    return (
+      <div className="space-y-6">
+        <div className="flex justify-between items-center mb-6">
+          <div className="flex items-center gap-3">
+            <div className="p-3 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl shadow-lg shadow-emerald-500/25">
+              <Target className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-gray-900">Products & Services</h3>
+              <p className="text-sm text-gray-600">Innovative offerings and capabilities</p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-xl font-bold text-gray-900">Products & Services</h3>
-            <p className="text-sm text-gray-600">Innovative offerings and capabilities</p>
-          </div>
+
+          <button
+            onClick={() => handleEdit('key_products_and_services')}
+            className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl hover:from-emerald-600 hover:to-teal-700 transition-all duration-200 transform hover:scale-105 flex items-center gap-2 font-medium shadow-lg shadow-emerald-500/25"
+          >
+            <Edit2 className="w-4 h-4" />
+            Edit Products
+          </button>
         </div>
 
-        <button
-          onClick={() => handleEdit('key_products_and_services')}
-          className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl hover:from-emerald-600 hover:to-teal-700 transition-all duration-200 transform hover:scale-105 flex items-center gap-2 font-medium shadow-lg shadow-emerald-500/25"
-        >
-          <Edit2 className="w-4 h-4" />
-          Edit Products
-        </button>
-      </div>
-
-      {plan.key_products_and_services.length === 0 ? (
+        {plan.key_products_and_services.length === 0 ? (
         <div className="text-center py-12">
           <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
             <Target className="w-6 h-6 text-gray-400" />
