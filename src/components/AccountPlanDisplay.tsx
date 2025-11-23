@@ -67,7 +67,7 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
   const handleEdit = (field: string) => {
     if (!plan) return;
 
-    const currentValue = plan[field as keyof AccountPlan);
+    const currentValue = plan[field as keyof AccountPlan];
     const editingState: EditingState = {
       field,
       value: currentValue,
