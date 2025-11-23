@@ -59,7 +59,7 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
     { id: 'overview', label: 'Overview', icon: FileText, color: 'from-blue-500 to-purple-600', gradient: 'from-blue-500/20 to-purple-600/20' },
     { id: 'products', label: 'Products', icon: Target, color: 'from-emerald-500 to-teal-600', gradient: 'from-emerald-500/20 to-teal-600/20' },
     { id: 'leadership', label: 'Leadership', icon: Users, color: 'from-violet-500 to-purple-600', gradient: 'from-violet-500/20 to-purple-600/20' },
-    {export_format: 'from-orange-500 to-red-500', gradient: 'from-orange-500/20 to-red-500/20' },
+    { id: 'swot', label: 'SWOT', icon: Lightbulb, color: 'from-orange-500 to-red-500', gradient: 'from-orange-500/20 to-red-500/20' },
     { id: 'diagram', label: 'Diagram', icon: BarChart3, color: 'from-pink-500 to-rose-600', gradient: 'from-pink-500/20 to-rose-600/20' },
     { id: 'export', label: 'Export', icon: Download, color: 'from-green-500 to-emerald-600', gradient: 'from-green-500/20 to-emerald-600/20' }
   ];
