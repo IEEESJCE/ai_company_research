@@ -343,12 +343,15 @@ export class ResearchAgent {
         const progress = 20 + (i * 15);
         this.updateProgress(progress, `Researching comprehensive area ${i + 1}`, false);
 
-        const sources = await tavilyClient.search(generalSearches[i], {
-          max_results: 3,
-          search_depth: "advanced"
-        });
+        const response = await tavilyClient.search(generalSearches[i], 3);
 
-        this.currentSession!.sources.push(...sources);
+        this.currentSession!.sources.push(...response.results.map(result => ({
+          url: result.url,
+          title: result.title,
+          content: result.content,
+          type: 'company' as const,
+          relevanceScore: result.score || 0.5,
+        })));
       }
     } catch (error) {
       console.error('General deep research failed:', error);
