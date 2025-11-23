@@ -253,12 +253,15 @@ export class ResearchAgent {
         const progress = 20 + (i * 15);
         this.updateProgress(progress, `Analyzing financial aspect ${i + 1}`, false);
 
-        const sources = await tavilyClient.search(financialSearches[i], {
-          max_results: 3,
-          search_depth: "advanced"
-        });
+        const response = await tavilyClient.search(financialSearches[i], 3);
 
-        this.currentSession!.sources.push(...sources);
+        this.currentSession!.sources.push(...response.results.map(result => ({
+          url: result.url,
+          title: result.title,
+          content: result.content,
+          type: 'company' as const,
+          relevanceScore: result.score || 0.5,
+        })));
       }
     } catch (error) {
       console.error('Financial research failed:', error);
