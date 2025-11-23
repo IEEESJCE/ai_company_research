@@ -940,10 +940,10 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
                   <div class="section">
                     <h2>Leadership</h2>
                     ${plan?.leadership_and_key_people.map(l =>
-                      <div class="leader">
+                      `<div class="leader">
                         <strong>${l.name || 'Unknown'}</strong>
                         <em>${l.role || 'Unknown'}</em>
-                      </div>
+                      </div>`
                     ).join('')}
                   </div>
                 </body>
