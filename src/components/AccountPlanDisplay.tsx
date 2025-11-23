@@ -66,7 +66,7 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
     const validation = AccountPlanSchema.safeParse(updatedPlan);
     if (!validation.success) {
       console.error('Validation error:', validation.error);
-      alert('Invalid data: ' + validation.error.errors[0]?.message);
+      alert('Invalid data: ' + validation.error.issues[0]?.message);
       return;
     }
 
