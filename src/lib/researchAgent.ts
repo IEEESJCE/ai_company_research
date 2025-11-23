@@ -14,6 +14,9 @@ export interface ResearchCallbacks {
   onError: (error: string) => void;
 }
 
+export type ResearchDepth = 'initial' | 'deeper' | 'expert';
+export type ResearchFocus = 'leadership' | 'competitors' | 'swot' | 'financial' | 'market' | 'products' | 'general';
+
 export class ResearchAgent {
   private currentSession: ResearchSession | null = null;
   private callbacks: ResearchCallbacks | null = null;
