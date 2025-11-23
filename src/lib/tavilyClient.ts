@@ -252,8 +252,36 @@ export class TavilyClient {
     return 'company';
   }
 
+  private getDemoSearchResponse(query: string, maxResults: number): TavilyResponse {
+    // Demo data for testing without API key
+    const demoResults: TavilySearchResult[] = [
+      {
+        title: `${query} - Company Overview`,
+        url: 'https://example.com/demo',
+        content: `This is demo content for ${query}. In a real implementation, this would contain actual search results from the web. The company specializes in innovative solutions and has a strong market presence.`,
+        score: 0.9
+      },
+      {
+        title: `${query} - Business Information`,
+        url: 'https://example.com/demo2',
+        content: `${query} has been operating in the technology sector with focus on customer satisfaction and product innovation. The company has shown consistent growth and market expansion.`,
+        score: 0.8
+      }
+    ];
+
+    return {
+      answer: `Demo search results for ${query}`,
+      results: demoResults.slice(0, maxResults),
+      response_time: 150
+    };
+  }
+
   isConfigured(): boolean {
     return Boolean(this.apiKey);
+  }
+
+  isDemoMode(): boolean {
+    return this.demoMode;
   }
 }
 
