@@ -230,6 +230,17 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
             <MessageCircle className="w-12 h-12 mx-auto mb-4 text-gray-300" />
             <h3 className="text-lg font-medium mb-2">Welcome to Company Research</h3>
             <p className="text-sm mb-4">Enter a company name to start researching and generating an account plan.</p>
+
+            {tavilyClient.isDemoMode() && (
+              <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <p className="text-sm text-yellow-800">
+                  <strong>DEMO MODE:</strong> No API key configured. Using sample data for demonstration.
+                  <br />
+                  <span className="text-xs">Add a Tavily API key to get real search results.</span>
+                </p>
+              </div>
+            )}
+
             {voiceStatus.isSupported && (
               <p className="text-sm text-blue-600">💬 You can also click the microphone to use voice input!</p>
             )}
