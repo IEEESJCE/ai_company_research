@@ -217,7 +217,7 @@ export class AIConversationalEngine {
     return { response, suggestions, followUpQuestions, shouldContinueResearch };
   }
 
-  private updateState(analysis: any) {
+  private updateState(analysis: any, userInput: string) {
     this.state.persona = analysis.persona;
     this.state.conversationDepth++;
 
