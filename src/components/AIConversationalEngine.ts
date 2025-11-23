@@ -311,9 +311,7 @@ Just let me know what you'd like to explore further!`;
       return "I'm absolutely fascinated by your curiosity! Company research is such an incredible journey - it's like being a business detective, piecing together clues about strategy, innovation, and market positioning.\n\nTo get started, just share a company name that interests you. It could be a company you admire, want to compete with, or are simply curious about. I'll gather insights from across the web and create something truly comprehensive for you. What company would you like to explore together?";
     }
 
-    return `Ooh, ${entities[0]}! That's such an interesting choice! I'm genuinely excited to dive into this one. Company research is like peeling back layers of an onion - there's always something fascinating to discover about their business strategy, the brilliant minds behind their success, their competitive landscape, and how they're positioning themselves for the future.
-
-Let me gather some really comprehensive insights for you. I'll look at their business model, leadership philosophy, product ecosystem, competitive advantages, and so much more. This is going to be fascinating! Ready for this deep dive?`;
+    return `Ooh, ${entities[0]}! That's such an interesting choice! I'm genuinely excited to dive into this one. Company research is like peeling back layers of an onion - there's always something fascinating to discover about their business strategy, the brilliant minds behind their success, their competitive landscape, and how they're positioning themselves for the future.\n\nLet me gather some really comprehensive insights for you. I'll look at their business model, leadership philosophy, product ecosystem, competitive advantages, and so much more. This is going to be fascinating! Ready for this deep dive?`;
   }
 
   private craftEdgeCaseResponse(analysis: any, currentSession?: ResearchSession): string {
