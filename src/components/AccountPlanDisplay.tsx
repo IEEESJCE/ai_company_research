@@ -370,8 +370,9 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
 
       {renderEditableField('market_position_summary', 'Market Position', plan.market_position_summary, 'text',
         'How does this company position itself in the market?', Award, true)}
-    </div>
-  );
+      </div>
+    );
+  };
 
   const renderProducts = () => (
     <div className="space-y-6">
