@@ -849,7 +849,8 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
         </div>
       </div>
     </div>
-  );
+    );
+  };
 
   const renderExport = () => (
     <div className="space-y-6">
