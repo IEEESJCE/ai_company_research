@@ -950,8 +950,10 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
               `;
 
               const printWindow = window.open('', '_blank');
-              printWindow.document.write(printContent);
-              printWindow.document.close();
+              if (printWindow) {
+                printWindow.document.write(printContent);
+                printWindow.document.close();
+              }
             }}
             className="p-4 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors text-gray-700 text-sm"
           >
