@@ -97,7 +97,7 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
     linkElement.click();
   };
 
-  const renderEditableField = (field: string, value: string | string[], type: 'text' | 'json' = 'text') => {
+  const renderEditableField = (field: string, value: string | string[] | any, type: 'text' | 'json' = 'text') => {
     const isEditing = editingField === field;
 
     if (isEditing) {
@@ -138,6 +138,9 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
       );
     }
 
+    // Handle display for complex objects
+    const displayValue = typeof value === 'string' ? value : JSON.stringify(value, null, 2);
+
     return (
       <div className="group relative">
         <div className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -149,13 +152,13 @@ export const AccountPlanDisplay: React.FC<AccountPlanDisplayProps> = ({
             <Edit2 className="w-3 h-3" />
           </button>
         </div>
-        {type === 'text' ? (
+        {type === 'text' && typeof value === 'string' ? (
           <p className="text-gray-700 whitespace-pre-wrap pr-8">
             {value || <span className="text-gray-400 italic">Not specified</span>}
           </p>
         ) : (
           <pre className="text-sm text-gray-700 bg-gray-50 p-3 rounded overflow-x-auto pr-8">
-            {JSON.stringify(value, null, 2)}
+            {displayValue}
           </pre>
         )}
       </div>
